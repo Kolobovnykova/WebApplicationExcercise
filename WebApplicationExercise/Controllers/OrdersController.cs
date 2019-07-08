@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using WebApplicationExercise.Models;
 using System.Threading.Tasks;
-using Ninject;
+using Unity;
 using WebApplicationExercise.DataLayer.Interfaces;
 
 namespace WebApplicationExercise.Controllers
@@ -13,7 +13,7 @@ namespace WebApplicationExercise.Controllers
     {
         private readonly IOrderRepository _repository;
 
-        [Inject]
+        [InjectionConstructor]
         public OrdersController(IOrderRepository repository)
         {
             _repository = repository;

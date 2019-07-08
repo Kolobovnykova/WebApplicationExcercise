@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Ninject;
+using Unity;
 using WebApplicationExercise.Core;
 using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.Models;
@@ -15,7 +15,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
         private readonly MainDataContext _context;
         private readonly CustomerManager _customerManager;
 
-        [Inject]
+        [InjectionConstructor]
         public OrderRepository(MainDataContext context, CustomerManager customerManager)
         {
             _context = context;
