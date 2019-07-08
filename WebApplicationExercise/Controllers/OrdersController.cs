@@ -1,62 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using WebApplicationExercise.Core;
 using WebApplicationExercise.Models;
-using System.Data.Entity;
+using System.Threading.Tasks;
+using Ninject;
+using WebApplicationExercise.DataLayer.Interfaces;
 
 namespace WebApplicationExercise.Controllers
 {
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
-        private MainDataContext _dataContext = new MainDataContext();
-        private CustomerManager _customerManager = new CustomerManager();
+        private readonly IOrderRepository _repository;
+
+        [Inject]
+        public OrdersController(IOrderRepository repository)
+        {
+            _repository = repository;
+        }
 
         [HttpGet]
         [Route("getOrder")]
-        public Order GetOrder(Guid orderId)
+        public async Task<Order> GetOrder(Guid orderId)
         {
-            return _dataContext.Orders.Include(o => o.Products).Single(o => o.Id == orderId);
+            var order = await _repository.Get(orderId);
+
+            return order;
         }
 
         [HttpGet]
         [Route("getOrders")]
-        public IEnumerable<Order> GetOrders(DateTime? from = null, DateTime? to = null, string customerName = null)
+        public async Task<IEnumerable<Order>> GetOrders(DateTime? from = null, DateTime? to = null, string customerName = null)
         {
-            IEnumerable<Order> orders = _dataContext.Orders.Include(o => o.Products);
-
-            if (from != null && to != null)
+            var orders = await _repository.GetOrders(from, to, customerName);
+            IEnumerable<Order> mockedOrders = new List<Order>
             {
-                orders = FilterByDate(orders, from.Value, to.Value);
-            }
+                new Order
+                {
+                    CreatedDate = new DateTime(2019, 01, 31),
+                    Customer = "Not Hidden Joe",
+                    Id = Guid.NewGuid(),
+                    Products = null
+                }
+            };
 
-            if (customerName != null)
-            {
-                orders = FilterByCustomer(orders, customerName);
-            }
-
-            return orders.Where(o => _customerManager.IsCustomerVisible(o.Customer));
+            return orders;
         }
 
         [HttpPost]
         [Route("saveOrder")]
         public void SaveOrder([FromBody]Order order)
         {
-            _dataContext.Orders.Add(order);
-            _dataContext.SaveChanges();
-        }
-
-        private IEnumerable<Order> FilterByCustomer(IEnumerable<Order> orders, string customerName)
-        {
-            return orders.Where(o => o.Customer == customerName);
-        }
-
-        private IEnumerable<Order> FilterByDate(IEnumerable<Order> orders, DateTime from, DateTime to)
-        {
-            return orders.Where(o => o.CreatedDate >= from && o.CreatedDate < to);
+            _repository.Create(order);
+            //_dataContext.Orders.Add(order);
+            //_dataContext.SaveChanges();
         }
     }
 }
