@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Unity;
 using WebApplicationExercise.Core;
 using WebApplicationExercise.DataLayer.Interfaces;
-using WebApplicationExercise.Models;
+using WebApplicationExercise.DataLayer.Models;
+using WebApplicationExercise.Exceptions;
 
 namespace WebApplicationExercise.DataLayer.Repositories
 {
@@ -24,10 +25,17 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
         public async Task<Order> Get(Guid orderId)
         {
-            return await _context.Orders.Include(o => o.Products).SingleOrDefaultAsync(o => o.Id == orderId);
+            var order = await _context.Orders.Include(o => o.Products).SingleOrDefaultAsync(o => o.Id == orderId);
+
+            if (order == null)
+            {
+                throw new NotFoundException(nameof(order));
+            }
+
+            return order;
         }
 
-        public async Task<IEnumerable<Order>> GetOrders(DateTime? @from = null, DateTime? to = null, string customerName = null)
+        public async Task<IEnumerable<Order>> GetOrders(DateTime? from = null, DateTime? to = null, string customerName = null)
         {
             IEnumerable<Order> orders = await _context.Orders.Include(o => o.Products).ToListAsync();
 
@@ -44,23 +52,35 @@ namespace WebApplicationExercise.DataLayer.Repositories
             return orders.Where(o => _customerManager.IsCustomerVisible(o.Customer));
         }
 
-        public async Task Create(Order entity)
+        public async Task Create(Order order)
         {
-            if (entity != null)
+            if (order == null)
             {
-                _context.Orders.Add(entity);
-                await _context.SaveChangesAsync();
+                throw new ArgumentNullException();
             }
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Update(Order entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public async Task Delete(Guid id)
+        public async Task<Order> Delete(Guid id)
         {
-            throw new System.NotImplementedException();
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
+            {
+                throw new NotFoundException(nameof(order));
+            }
+
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+
+            return order;
         }
 
         private IEnumerable<Order> FilterByCustomer(IEnumerable<Order> orders, string customerName)

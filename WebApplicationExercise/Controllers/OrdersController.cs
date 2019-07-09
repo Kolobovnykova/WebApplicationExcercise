@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Http;
-using WebApplicationExercise.Models;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Unity;
 using WebApplicationExercise.DataLayer.Interfaces;
+using WebApplicationExercise.DataLayer.Models;
+using WebApplicationExercise.Exceptions;
 
 namespace WebApplicationExercise.Controllers
 {
@@ -21,39 +22,59 @@ namespace WebApplicationExercise.Controllers
 
         [HttpGet]
         [Route("getOrder")]
-        public async Task<Order> GetOrder(Guid orderId)
+        public async Task<IHttpActionResult> GetOrder([FromUri]Guid orderId)
         {
-            var order = await _repository.Get(orderId);
-
-            return order;
+            try
+            {
+                var order = await _repository.Get(orderId);
+                return Ok(order);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [Route("getOrders")]
-        public async Task<IEnumerable<Order>> GetOrders(DateTime? from = null, DateTime? to = null, string customerName = null)
+        public async Task<IEnumerable<Order>> GetOrders(
+            [FromUri]DateTime? from = null,
+            [FromUri]DateTime? to = null,
+            [FromUri]string customerName = null)
         {
             var orders = await _repository.GetOrders(from, to, customerName);
-            IEnumerable<Order> mockedOrders = new List<Order>
-            {
-                new Order
-                {
-                    CreatedDate = new DateTime(2019, 01, 31),
-                    Customer = "Not Hidden Joe",
-                    Id = Guid.NewGuid(),
-                    Products = null
-                }
-            };
 
             return orders;
         }
 
         [HttpPost]
         [Route("saveOrder")]
-        public void SaveOrder([FromBody]Order order)
+        public async Task<IHttpActionResult> SaveOrder([FromBody]Order order)
         {
-            _repository.Create(order);
-            //_dataContext.Orders.Add(order);
-            //_dataContext.SaveChanges();
+            try
+            {
+                await _repository.Create(order);
+                return Ok();
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        [Route("deleteOrder")]
+        public async Task<IHttpActionResult> DeleteOrder([FromUri]Guid orderId)
+        {
+            try
+            {
+                var order = await _repository.Delete(orderId);
+                return Ok(order);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
         }
     }
 }

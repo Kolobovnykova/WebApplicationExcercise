@@ -210,11 +210,13 @@
     <Compile Include="DataLayer\Interfaces\IRepository.cs" />
     <Compile Include="DataLayer\Models\Entity.cs" />
     <Compile Include="DataLayer\Repositories\OrderRepository.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DataLayer\Models\Order.cs" />
     <Compile Include="DataLayer\Models\Product.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

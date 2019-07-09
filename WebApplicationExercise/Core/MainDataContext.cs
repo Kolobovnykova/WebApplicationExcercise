@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using WebApplicationExercise.Models;
+﻿using System.Data.Entity;
+using WebApplicationExercise.DataLayer.Models;
 
 namespace WebApplicationExercise.Core
 {

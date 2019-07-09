@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebApplicationExercise.DataLayer.Models;
 
-namespace WebApplicationExercise.Models
+namespace WebApplicationExercise.DataLayer.Models
 {
     public class Order : Entity
     {

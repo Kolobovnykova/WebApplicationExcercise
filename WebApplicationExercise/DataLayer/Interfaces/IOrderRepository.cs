@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplicationExercise.Models;
+using WebApplicationExercise.DataLayer.Models;
 
 namespace WebApplicationExercise.DataLayer.Interfaces
 {
