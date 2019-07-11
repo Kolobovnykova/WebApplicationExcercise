@@ -14,15 +14,14 @@ namespace WebApplicationExercise.Controllers
     {
         private readonly IOrderRepository _repository;
 
-        [InjectionConstructor]
         public OrdersController(IOrderRepository repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        [Route("getOrder")]
-        public async Task<IHttpActionResult> GetOrder([FromUri]Guid orderId)
+        [Route("getOrder/{orderId}")]
+        public async Task<IHttpActionResult> GetOrder(Guid orderId)
         {
             try
             {
@@ -63,8 +62,8 @@ namespace WebApplicationExercise.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteOrder")]
-        public async Task<IHttpActionResult> DeleteOrder([FromUri]Guid orderId)
+        [Route("deleteOrder/{orderId}")]
+        public async Task<IHttpActionResult> DeleteOrder(Guid orderId)
         {
             try
             {

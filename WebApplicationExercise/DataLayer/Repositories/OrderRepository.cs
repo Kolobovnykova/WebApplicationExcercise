@@ -16,7 +16,6 @@ namespace WebApplicationExercise.DataLayer.Repositories
         private readonly MainDataContext _context;
         private readonly CustomerManager _customerManager;
 
-        [InjectionConstructor]
         public OrderRepository(MainDataContext context, CustomerManager customerManager)
         {
             _context = context;

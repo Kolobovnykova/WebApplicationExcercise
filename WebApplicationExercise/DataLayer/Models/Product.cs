@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationExercise.DataLayer.Models
 {
@@ -9,5 +10,7 @@ namespace WebApplicationExercise.DataLayer.Models
 
         [Range(0.0, double.MaxValue, ErrorMessage = "The Price must be positive.")]
         public double Price { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

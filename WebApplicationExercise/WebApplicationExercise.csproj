@@ -204,12 +204,14 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Core\CustomerManager.cs" />
     <Compile Include="Core\MainDataContext.cs" />
     <Compile Include="DataLayer\Interfaces\IOrderRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IRepository.cs" />
     <Compile Include="DataLayer\Models\Entity.cs" />
     <Compile Include="DataLayer\Repositories\OrderRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ProductRepository.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

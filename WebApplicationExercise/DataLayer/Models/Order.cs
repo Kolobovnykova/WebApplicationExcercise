@@ -9,6 +9,6 @@ namespace WebApplicationExercise.DataLayer.Models
 
         public string Customer { get; set; }
 
-        public List<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
