@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -7,6 +8,7 @@ using Swashbuckle.Examples;
 using Unity;
 using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.DataLayer.Models;
+using WebApplicationExercise.Dtos;
 using WebApplicationExercise.Exceptions;
 using WebApplicationExercise.SwaggerExamples;
 
@@ -65,7 +67,7 @@ namespace WebApplicationExercise.Controllers
         {
             var orders = await _repository.GetOrders(from, to, customerName);
 
-            return orders;
+            return orders.ToList();
         }
 
         /// <summary>
@@ -82,12 +84,43 @@ namespace WebApplicationExercise.Controllers
         {
             try
             {
-                await _repository.Create(order);
+                var result = await _repository.Create(order);
+                return Ok(result);
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        [Route("updateOrder")]
+        public async Task<IHttpActionResult> UpdateOrder([FromBody] Order order)
+        {
+            try
+            {
+                /*var result =*/
+                await _repository.Update(order);
                 return Ok();
             }
             catch (ArgumentNullException e)
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpPatch]
+        [Route("assignProducts")]
+        public async Task<IHttpActionResult> AssignProducts([FromBody] OrderProductsDto orderProductsDto)
+        {
+            try
+            {
+                var result = await _repository.AssignProducts(orderProductsDto);
+                return Ok(result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
             }
         }
 

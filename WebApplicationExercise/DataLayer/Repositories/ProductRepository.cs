@@ -31,7 +31,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
             return product;
         }
 
-        public async Task Create(Product product)
+        public async Task<Product> Create(Product product)
         {
             if (product == null)
             {
@@ -40,6 +40,8 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
+
+            return product;
         }
 
         public async Task Update(Product product)

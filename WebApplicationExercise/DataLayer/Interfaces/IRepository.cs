@@ -7,7 +7,7 @@ namespace WebApplicationExercise.DataLayer.Interfaces
     public interface IRepository<TEntity> where TEntity : Entity
     {
         Task<TEntity> Get(Guid id);
-        Task Create(TEntity entity);
+        Task<TEntity> Create(TEntity entity);
         Task Update(TEntity entity);
         Task<TEntity> Delete(Guid id);
     }

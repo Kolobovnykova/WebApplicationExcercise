@@ -220,6 +220,7 @@
     <Compile Include="DataLayer\Models\Entity.cs" />
     <Compile Include="DataLayer\Repositories\OrderRepository.cs" />
     <Compile Include="DataLayer\Repositories\ProductRepository.cs" />
+    <Compile Include="Dtos\OrderProductsDto.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -7,6 +7,7 @@ using Unity;
 using WebApplicationExercise.Core;
 using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.DataLayer.Models;
+using WebApplicationExercise.Dtos;
 using WebApplicationExercise.Exceptions;
 
 namespace WebApplicationExercise.DataLayer.Repositories
@@ -15,11 +16,13 @@ namespace WebApplicationExercise.DataLayer.Repositories
     {
         private readonly MainDataContext _context;
         private readonly CustomerManager _customerManager;
+        private readonly IRepository<Product> _productRepository;
 
-        public OrderRepository(MainDataContext context, CustomerManager customerManager)
+        public OrderRepository(MainDataContext context, CustomerManager customerManager, IRepository<Product> productRepository)
         {
             _context = context;
             _customerManager = customerManager;
+            _productRepository = productRepository;
         }
 
         public async Task<Order> Get(Guid orderId)
@@ -51,20 +54,59 @@ namespace WebApplicationExercise.DataLayer.Repositories
             return orders.Where(o => _customerManager.IsCustomerVisible(o.Customer));
         }
 
-        public async Task Create(Order order)
+        public async Task<Order> Create(Order order)
         {
             if (order == null)
             {
                 throw new ArgumentNullException();
             }
 
+            var products = order.Products;
+            order.Products = new List<Product>();
+
+            if (products != null && products.Count != 0)
+            {
+                foreach (var prod in products)
+                {
+                    var result = await _productRepository.Get(prod.Id);
+                    if (result != null)
+                    {
+                        order.Products.Add(result);
+                    }
+                }
+            }
+
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+
+            return order;
         }
 
         public async Task Update(Order entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Order> AssignProducts(OrderProductsDto orderProductsDto)
+        {
+            if (orderProductsDto == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var order = await Get(orderProductsDto.OrderId);
+            if (orderProductsDto.ProductIds.Any())
+            {
+                foreach (var productId in orderProductsDto.ProductIds)
+                {
+                    var product = await _productRepository.Get(productId);
+                    order.Products.Add(product);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return order;
         }
 
         public async Task<Order> Delete(Guid id)
