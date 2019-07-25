@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Unity;
 using WebApplicationExercise.Core;
 using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.DataLayer.Models;
