@@ -76,15 +76,15 @@ namespace WebApplicationExercise.Controllers
         /// <remarks>
         /// Create a new order
         /// </remarks>
-        /// <param name="order"></param>
+        /// <param name="orderProductsDto"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("saveOrder")]
-        public async Task<IHttpActionResult> SaveOrder([FromBody]Order order)
+        public async Task<IHttpActionResult> SaveOrder([FromBody]OrderProductsDto orderProductsDto)
         {
             try
             {
-                var result = await _repository.Create(order);
+                var result = await _repository.Create(orderProductsDto.Order, orderProductsDto.ProductIds);
                 return Ok(result);
             }
             catch (ArgumentNullException e)
@@ -111,11 +111,11 @@ namespace WebApplicationExercise.Controllers
 
         [HttpPatch]
         [Route("assignProducts")]
-        public async Task<IHttpActionResult> AssignProducts([FromBody] OrderProductsDto orderProductsDto)
+        public async Task<IHttpActionResult> AssignProducts([FromBody] OrderProductIdsDto orderProductIdsDto)
         {
             try
             {
-                var result = await _repository.AssignProducts(orderProductsDto);
+                var result = await _repository.AssignProducts(orderProductIdsDto);
                 return Ok(result);
             }
             catch (NotFoundException e)

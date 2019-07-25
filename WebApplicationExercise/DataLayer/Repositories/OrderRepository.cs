@@ -61,18 +61,31 @@ namespace WebApplicationExercise.DataLayer.Repositories
                 throw new ArgumentNullException();
             }
 
-            var products = order.Products;
-            order.Products = new List<Product>();
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
 
-            if (products != null && products.Count != 0)
+            return order;
+        }
+
+        public async Task<Order> Create(Order order, Guid[] productIds)
+        {
+            if (order == null)
             {
-                foreach (var prod in products)
+                throw new ArgumentNullException();
+            }
+
+            if (productIds == null || !productIds.Any())
+            {
+                var result = await Create(order);
+                return result;
+            }
+
+            foreach (var prodId in productIds)
+            {
+                var result = await _productRepository.Get(prodId);
+                if (result != null)
                 {
-                    var result = await _productRepository.Get(prod.Id);
-                    if (result != null)
-                    {
-                        order.Products.Add(result);
-                    }
+                    order.Products.Add(result);
                 }
             }
 
@@ -87,17 +100,17 @@ namespace WebApplicationExercise.DataLayer.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Order> AssignProducts(OrderProductsDto orderProductsDto)
+        public async Task<Order> AssignProducts(OrderProductIdsDto orderProductIdsDto)
         {
-            if (orderProductsDto == null)
+            if (orderProductIdsDto == null)
             {
                 throw new ArgumentNullException();
             }
 
-            var order = await Get(orderProductsDto.OrderId);
-            if (orderProductsDto.ProductIds.Any())
+            var order = await Get(orderProductIdsDto.OrderId);
+            if (orderProductIdsDto.ProductIds.Any())
             {
-                foreach (var productId in orderProductsDto.ProductIds)
+                foreach (var productId in orderProductIdsDto.ProductIds)
                 {
                     var product = await _productRepository.Get(productId);
                     order.Products.Add(product);

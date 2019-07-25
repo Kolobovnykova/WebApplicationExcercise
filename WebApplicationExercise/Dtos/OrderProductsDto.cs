@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using WebApplicationExercise.DataLayer.Models;
 
 namespace WebApplicationExercise.Dtos
 {
     public class OrderProductsDto
     {
-        public Guid OrderId { get; set; }
-        public IEnumerable<Guid> ProductIds { get; set; }
+        public Order Order { get; set; }
+        public Guid[] ProductIds { get; set; }
     }
 }
