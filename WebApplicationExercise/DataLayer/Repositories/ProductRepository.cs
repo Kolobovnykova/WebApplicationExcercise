@@ -44,7 +44,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
             return product;
         }
 
-        public async Task Update(Product product)
+        public async Task<Product> Update(Product product)
         {
             throw new NotImplementedException();
         }

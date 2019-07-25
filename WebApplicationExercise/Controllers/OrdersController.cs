@@ -94,14 +94,18 @@ namespace WebApplicationExercise.Controllers
         }
 
         [HttpPut]
-        [Route("updateOrder")]
-        public async Task<IHttpActionResult> UpdateOrder([FromBody] Order order)
+        [Route("updateOrder/{orderId}")]
+        public async Task<IHttpActionResult> UpdateOrder([FromBody] Order order, Guid orderId)
         {
             try
             {
-                /*var result =*/
-                await _repository.Update(order);
-                return Ok();
+                order.Id = orderId;
+                var result = await _repository.Update(order);
+                return Ok(result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
             }
             catch (ArgumentNullException e)
             {

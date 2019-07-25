@@ -8,7 +8,7 @@ namespace WebApplicationExercise.DataLayer.Interfaces
     {
         Task<TEntity> Get(Guid id);
         Task<TEntity> Create(TEntity entity);
-        Task Update(TEntity entity);
+        Task<TEntity> Update (TEntity entity);
         Task<TEntity> Delete(Guid id);
     }
 }

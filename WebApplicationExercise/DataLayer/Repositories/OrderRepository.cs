@@ -95,9 +95,26 @@ namespace WebApplicationExercise.DataLayer.Repositories
             return order;
         }
 
-        public async Task Update(Order entity)
+        public async Task<Order> Update(Order order)
         {
-            throw new NotImplementedException();
+            if (order == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var resultOrder = await Get(order.Id);
+            if (resultOrder == null)
+            {
+                throw new NotFoundException(nameof(order));
+            }
+
+            resultOrder.Customer = order.Customer;
+            resultOrder.CreatedDate = order.CreatedDate;
+            resultOrder.Products = order.Products;
+
+            await _context.SaveChangesAsync();
+
+            return resultOrder;
         }
 
         public async Task<Order> AssignProducts(OrderProductIdsDto orderProductIdsDto)
