@@ -27,18 +27,18 @@ namespace WebApplicationExercise.Controllers
         /// Get order by Id
         /// </summary>
         /// <remarks>
-        /// Get order by id
+        /// Get order by Id
         /// </remarks>
-        /// <param name="orderId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("getOrder/{orderId}")]
+        [Route("{id}")]
         [SwaggerResponseExample(HttpStatusCode.OK, typeof(OrderExamples))]
-        public async Task<IHttpActionResult> GetOrder(Guid orderId)
+        public async Task<IHttpActionResult> GetOrder(Guid id)
         {
             try
             {
-                var order = await _repository.Get(orderId);
+                var order = await _repository.Get(id);
                 return Ok(order);
             }
             catch (NotFoundException e)
@@ -58,7 +58,6 @@ namespace WebApplicationExercise.Controllers
         /// <param name="customerName"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("getOrders")]
         public async Task<IEnumerable<Order>> GetOrders(
             [FromUri]DateTime? from = null,
             [FromUri]DateTime? to = null,
@@ -78,8 +77,7 @@ namespace WebApplicationExercise.Controllers
         /// <param name="orderProductsDto"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("saveOrder")]
-        public async Task<IHttpActionResult> SaveOrder([FromBody]OrderProductsDto orderProductsDto)
+        public async Task<IHttpActionResult> CreateOrder([FromBody]OrderProductsDto orderProductsDto)
         {
             try
             {
@@ -92,13 +90,22 @@ namespace WebApplicationExercise.Controllers
             }
         }
 
+        /// <summary>
+        /// Update an existing order
+        /// </summary>
+        /// <remarks>
+        /// Update an existing order
+        /// </remarks>
+        /// <param name="order"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut]
-        [Route("updateOrder/{orderId}")]
-        public async Task<IHttpActionResult> UpdateOrder([FromBody] Order order, Guid orderId)
+        [Route("{id}")]
+        public async Task<IHttpActionResult> UpdateOrder([FromBody] Order order, Guid id)
         {
             try
             {
-                order.Id = orderId;
+                order.Id = id;
                 var result = await _repository.Update(order);
                 return Ok(result);
             }
@@ -133,15 +140,15 @@ namespace WebApplicationExercise.Controllers
         /// <remarks>
         /// Delete an existing order
         /// </remarks>
-        /// <param name="orderId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("deleteOrder/{orderId}")]
-        public async Task<IHttpActionResult> DeleteOrder(Guid orderId)
+        [Route("{id}")]
+        public async Task<IHttpActionResult> DeleteOrder(Guid id)
         {
             try
             {
-                var order = await _repository.Delete(orderId);
+                var order = await _repository.Delete(id);
                 return Ok(order);
             }
             catch (NotFoundException e)

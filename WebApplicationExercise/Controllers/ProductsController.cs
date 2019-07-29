@@ -23,15 +23,15 @@ namespace WebApplicationExercise.Controllers
         /// <remarks>
         /// Get product by Id
         /// </remarks>
-        /// <param name="productId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("getProduct/{productId}")]
-        public async Task<IHttpActionResult> GetOrder(Guid productId)
+        [Route("{id}")]
+        public async Task<IHttpActionResult> GetProduct(Guid id)
         {
             try
             {
-                var product = await _repository.Get(productId);
+                var product = await _repository.Get(id);
                 return Ok(product);
             }
             catch (NotFoundException e)
@@ -48,8 +48,7 @@ namespace WebApplicationExercise.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("saveProduct")]
-        public async Task<IHttpActionResult> SaveOrder([FromBody]Product product)
+        public async Task<IHttpActionResult> CreateProduct([FromBody]Product product)
         {
             try
             {
