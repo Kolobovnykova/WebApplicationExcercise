@@ -14,10 +14,10 @@ using WebApplicationExercise.SwaggerExamples;
 namespace WebApplicationExercise.Controllers
 {
     [RoutePrefix("api/orders")]
-    public class OrdersController : ApiController
+    public class OrdersController : BaseApiController
     {
         private readonly IOrderRepository _repository;
-
+        
         public OrdersController(IOrderRepository repository)
         {
             _repository = repository;

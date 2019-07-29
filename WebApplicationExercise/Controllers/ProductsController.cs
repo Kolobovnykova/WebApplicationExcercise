@@ -8,7 +8,7 @@ using WebApplicationExercise.Exceptions;
 namespace WebApplicationExercise.Controllers
 {
     [RoutePrefix("api/products")]
-    public class ProductsController : ApiController
+    public class ProductsController : BaseApiController
     {
         private readonly IRepository<Product> _repository;
 
