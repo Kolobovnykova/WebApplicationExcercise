@@ -7,7 +7,7 @@ namespace WebApplicationExercise.Filters
 {
     public class LogFilter : ActionFilterAttribute
     {
-        private Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+        private Logger _logger = LogManager.GetCurrentClassLogger();
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {

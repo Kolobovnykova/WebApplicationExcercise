@@ -236,6 +236,7 @@
     </Compile>
     <Compile Include="DataLayer\Models\Order.cs" />
     <Compile Include="DataLayer\Models\Product.cs" />
+    <Compile Include="Handlers\GlobalExceptionHandler.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwaggerExamples\OrderExamples.cs" />
