@@ -109,7 +109,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
             resultOrder.Customer = order.Customer;
             resultOrder.CreatedDate = order.CreatedDate;
-            resultOrder.Products = order.Products;
+          //  resultOrder.Products = order.Products;
 
             await _context.SaveChangesAsync();
 

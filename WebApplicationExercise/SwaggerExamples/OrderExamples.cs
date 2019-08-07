@@ -14,17 +14,16 @@ namespace WebApplicationExercise.SwaggerExamples
                 Id = Guid.NewGuid(),
                 CreatedDate = new DateTime(2016, 4, 13),
                 Customer = "John",
-                Products = new List<Product>()
+               // Products = new List<Product>()
             };
             var product = new Product
             {
                 Id = Guid.NewGuid(),
                 Name = "Product1",
-                Price = 68.3d,
-                Orders = new List<Order>()
+                Price = 68.3d
             };
 
-            order.Products.Add(product);
+            //order.Products.Add(product);
 
             return order;
         }

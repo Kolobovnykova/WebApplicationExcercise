@@ -52,8 +52,8 @@ namespace WebApplicationExercise.Controllers
         {
             try
             {
-                await _repository.Create(product);
-                return Ok();
+                var result = await _repository.Create(product);
+                return Ok(result);
             }
             catch (ArgumentNullException e)
             {

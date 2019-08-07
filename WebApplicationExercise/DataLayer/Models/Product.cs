@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationExercise.DataLayer.Models
 {
     public class Product : Entity
     {
-        [StringLength(50, ErrorMessage = "The Name must be less than 50 characters.")]
+        [StringLength(50, ErrorMessage = "Name must be less than 50 characters.")]
         public string Name { get; set; }
 
-        [Range(0.0, double.MaxValue, ErrorMessage = "The Price must be positive.")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "Price must be positive.")]
         public double Price { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Quantity must be positive.")]
+        public int Quantity { get; set; }
+
+        public Order Order { get; set; }
     }
 }

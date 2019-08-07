@@ -19,7 +19,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
         public async Task<Product> Get(Guid productId)
         {
-            var product = await _context.Products.Include(o => o.Orders)
+            var product = await _context.Products
                 .SingleOrDefaultAsync(o => o.Id == productId);
 
             if (product == null)

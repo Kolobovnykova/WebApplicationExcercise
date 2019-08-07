@@ -58,6 +58,7 @@ namespace WebApplicationExercise.Controllers
         /// <param name="customerName"></param>
         /// <returns></returns>
         [HttpGet]
+        [System.Web.Mvc.HandleError]
         public async Task<IEnumerable<Order>> GetOrders(
             [FromUri]DateTime? from = null,
             [FromUri]DateTime? to = null,
