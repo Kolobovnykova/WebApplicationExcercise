@@ -66,7 +66,7 @@ namespace WebApplicationExercise.Controllers
         {
             var orders = await _repository.GetOrders(from, to, customerName);
 
-            return orders.ToList();
+            return orders;
         }
 
         /// <summary>

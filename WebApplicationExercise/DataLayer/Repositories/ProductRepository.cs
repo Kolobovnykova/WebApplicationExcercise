@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using WebApplicationExercise.Core;
@@ -8,7 +9,7 @@ using WebApplicationExercise.Exceptions;
 
 namespace WebApplicationExercise.DataLayer.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository : IProductRepository
     {
         private readonly MainDataContext _context;
 
@@ -19,7 +20,7 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
         public async Task<Product> Get(Guid productId)
         {
-            var product = await _context.Products
+            var product = await _context.Products.Include(x => x.Order)
                 .SingleOrDefaultAsync(o => o.Id == productId);
 
             if (product == null)
@@ -28,6 +29,11 @@ namespace WebApplicationExercise.DataLayer.Repositories
             }
 
             return product;
+        }
+
+        public async Task<IEnumerable<Product>> GetAll()
+        {
+            return await _context.Products.Include(x => x.Order).ToListAsync();
         }
 
         public async Task<Product> Create(Product product)

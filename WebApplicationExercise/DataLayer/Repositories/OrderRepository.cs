@@ -15,9 +15,9 @@ namespace WebApplicationExercise.DataLayer.Repositories
     {
         private readonly MainDataContext _context;
         private readonly CustomerManager _customerManager;
-        private readonly IRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public OrderRepository(MainDataContext context, CustomerManager customerManager, IRepository<Product> productRepository)
+        public OrderRepository(MainDataContext context, CustomerManager customerManager, IProductRepository productRepository)
         {
             _context = context;
             _customerManager = customerManager;
@@ -79,12 +79,15 @@ namespace WebApplicationExercise.DataLayer.Repositories
                 return result;
             }
 
+            order.Products = new List<Product>();
+
             foreach (var prodId in productIds)
             {
                 var result = await _productRepository.Get(prodId);
                 if (result != null)
                 {
                     order.Products.Add(result);
+                    order.Total += result.Price * result.Quantity;
                 }
             }
 

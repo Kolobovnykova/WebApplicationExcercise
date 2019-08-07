@@ -223,6 +223,7 @@
     <Compile Include="Core\CustomerManager.cs" />
     <Compile Include="Core\MainDataContext.cs" />
     <Compile Include="DataLayer\Interfaces\IOrderRepository.cs" />
+    <Compile Include="DataLayer\Interfaces\IProductRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IRepository.cs" />
     <Compile Include="DataLayer\Models\Entity.cs" />
     <Compile Include="DataLayer\Repositories\OrderRepository.cs" />
@@ -241,6 +242,10 @@
     <Compile Include="Migrations\201908070856586_OneToMany.cs" />
     <Compile Include="Migrations\201908070856586_OneToMany.Designer.cs">
       <DependentUpon>201908070856586_OneToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908071239413_AddCreatedAndModifiedDate.cs" />
+    <Compile Include="Migrations\201908071239413_AddCreatedAndModifiedDate.Designer.cs">
+      <DependentUpon>201908071239413_AddCreatedAndModifiedDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -341,6 +346,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908070856586_OneToMany.resx">
       <DependentUpon>201908070856586_OneToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071239413_AddCreatedAndModifiedDate.resx">
+      <DependentUpon>201908071239413_AddCreatedAndModifiedDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
