@@ -237,7 +237,7 @@
     </Compile>
     <Compile Include="DataLayer\Models\Order.cs" />
     <Compile Include="DataLayer\Models\Product.cs" />
-    <Compile Include="Handlers\ExceptionFilter.cs" />
+    <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Handlers\GlobalExceptionHandler.cs" />
     <Compile Include="Migrations\201908070856586_OneToMany.cs" />
     <Compile Include="Migrations\201908070856586_OneToMany.Designer.cs">

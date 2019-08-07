@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -9,6 +8,7 @@ using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.DataLayer.Models;
 using WebApplicationExercise.Dtos;
 using WebApplicationExercise.Exceptions;
+using WebApplicationExercise.Filters;
 using WebApplicationExercise.SwaggerExamples;
 
 namespace WebApplicationExercise.Controllers
@@ -58,7 +58,6 @@ namespace WebApplicationExercise.Controllers
         /// <param name="customerName"></param>
         /// <returns></returns>
         [HttpGet]
-        [System.Web.Mvc.HandleError]
         public async Task<IEnumerable<Order>> GetOrders(
             [FromUri]DateTime? from = null,
             [FromUri]DateTime? to = null,
