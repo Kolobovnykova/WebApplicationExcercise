@@ -6,8 +6,6 @@ namespace WebApplicationExercise.DataLayer.Models
 {
     public class Order : Entity
     {
-        public DateTime CreatedDate { get; set; }
-
         [StringLength(30, MinimumLength = 3, ErrorMessage = "Customer name length must be between 3 and 50 characters.")]
         public string Customer { get; set; }
 
