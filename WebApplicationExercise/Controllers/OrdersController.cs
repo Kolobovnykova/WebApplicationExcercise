@@ -8,7 +8,6 @@ using WebApplicationExercise.DataLayer.Interfaces;
 using WebApplicationExercise.DataLayer.Models;
 using WebApplicationExercise.Dtos;
 using WebApplicationExercise.Exceptions;
-using WebApplicationExercise.Filters;
 using WebApplicationExercise.SwaggerExamples;
 
 namespace WebApplicationExercise.Controllers

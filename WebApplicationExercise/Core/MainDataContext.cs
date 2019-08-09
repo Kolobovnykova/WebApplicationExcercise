@@ -13,6 +13,10 @@ namespace WebApplicationExercise.Core
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasMany<Product>(g => g.Products)
+                .WithOptional(s => s.Order)
+                .WillCascadeOnDelete();
         }
 
         public override Task<int> SaveChangesAsync()

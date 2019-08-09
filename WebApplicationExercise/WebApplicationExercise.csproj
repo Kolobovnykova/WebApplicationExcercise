@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201908091028347_initial.Designer.cs">
       <DependentUpon>201908091028347_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908091301125_AllowCascadeDelete.cs" />
+    <Compile Include="Migrations\201908091301125_AllowCascadeDelete.Designer.cs">
+      <DependentUpon>201908091301125_AllowCascadeDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwaggerExamples\OrderExamples.cs" />
@@ -342,6 +346,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908091028347_initial.resx">
       <DependentUpon>201908091028347_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908091301125_AllowCascadeDelete.resx">
+      <DependentUpon>201908091301125_AllowCascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -11,6 +11,6 @@ namespace WebApplicationExercise.DataLayer.Models
         [Range(0.0, double.MaxValue, ErrorMessage = "Total must be positive.")]
         public double Total { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
