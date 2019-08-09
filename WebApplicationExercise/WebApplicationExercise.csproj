@@ -239,13 +239,9 @@
     <Compile Include="DataLayer\Models\Product.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Handlers\GlobalExceptionHandler.cs" />
-    <Compile Include="Migrations\201908070856586_OneToMany.cs" />
-    <Compile Include="Migrations\201908070856586_OneToMany.Designer.cs">
-      <DependentUpon>201908070856586_OneToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908071239413_AddCreatedAndModifiedDate.cs" />
-    <Compile Include="Migrations\201908071239413_AddCreatedAndModifiedDate.Designer.cs">
-      <DependentUpon>201908071239413_AddCreatedAndModifiedDate.cs</DependentUpon>
+    <Compile Include="Migrations\201908091028347_initial.cs" />
+    <Compile Include="Migrations\201908091028347_initial.Designer.cs">
+      <DependentUpon>201908091028347_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -344,11 +340,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908070856586_OneToMany.resx">
-      <DependentUpon>201908070856586_OneToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908071239413_AddCreatedAndModifiedDate.resx">
-      <DependentUpon>201908071239413_AddCreatedAndModifiedDate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908091028347_initial.resx">
+      <DependentUpon>201908091028347_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
