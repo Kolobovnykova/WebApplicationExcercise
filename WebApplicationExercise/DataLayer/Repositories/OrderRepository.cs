@@ -87,7 +87,6 @@ namespace WebApplicationExercise.DataLayer.Repositories
                 if (result != null)
                 {
                     order.Products.Add(result);
-                    order.Total += result.Price * result.Quantity;
                 }
             }
 
@@ -111,8 +110,6 @@ namespace WebApplicationExercise.DataLayer.Repositories
             }
 
             resultOrder.Customer = order.Customer;
-            resultOrder.CreatedDate = order.CreatedDate;
-            resultOrder.Products = order.Products;
 
             await _context.SaveChangesAsync();
 

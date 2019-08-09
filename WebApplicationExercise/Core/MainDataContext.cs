@@ -35,6 +35,15 @@ namespace WebApplicationExercise.Core
                 }
             }
 
+            var orders = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is Order && (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var order in orders)
+            {
+                ((Order) order.Entity).Total = ((Order) order.Entity).Products.Sum(x => x.Price * x.Quantity);
+            }
+
             return base.SaveChangesAsync();
         }
     }

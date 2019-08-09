@@ -81,5 +81,28 @@ namespace WebApplicationExercise.Controllers
                 return BadRequest();
             }
         }
+
+        /// <summary>
+        /// Delete an existing product
+        /// </summary>
+        /// <remarks>
+        /// Delete an existing product
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> DeleteProduct(Guid id)
+        {
+            try
+            {
+                var product = await _repository.Delete(id);
+                return Ok(product);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
+        }
     }
 }

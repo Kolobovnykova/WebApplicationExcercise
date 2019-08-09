@@ -56,7 +56,17 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
         public async Task<Product> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                throw new NotFoundException(nameof(product));
+            }
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
+            return product;
         }
     }
 }

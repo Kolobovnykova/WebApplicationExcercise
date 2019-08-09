@@ -13,6 +13,6 @@ namespace WebApplicationExercise.DataLayer.Models
         [Range(0, int.MaxValue, ErrorMessage = "Quantity must be positive.")]
         public int Quantity { get; set; }
 
-        public virtual Order Order { get; set; }
+        public Order Order { get; set; }
     }
 }
