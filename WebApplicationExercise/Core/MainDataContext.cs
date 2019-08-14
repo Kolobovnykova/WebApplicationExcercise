@@ -41,7 +41,7 @@ namespace WebApplicationExercise.Core
 
             foreach (var order in orders)
             {
-                ((Order) order.Entity).Total = ((Order) order.Entity).Products.Sum(x => x.Price * x.Quantity);
+                ((Order)order.Entity).UpdateTotal();
             }
 
             return base.SaveChangesAsync();

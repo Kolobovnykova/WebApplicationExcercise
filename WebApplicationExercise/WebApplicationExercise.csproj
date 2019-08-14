@@ -222,6 +222,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Core\CustomerManager.cs" />
     <Compile Include="Core\MainDataContext.cs" />
+    <Compile Include="Core\OrderTotalUpdate.cs" />
     <Compile Include="DataLayer\Interfaces\IOrderRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IProductRepository.cs" />
     <Compile Include="DataLayer\Interfaces\IRepository.cs" />
