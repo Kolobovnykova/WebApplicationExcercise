@@ -83,6 +83,35 @@ namespace WebApplicationExercise.Controllers
         }
 
         /// <summary>
+        /// Update an existing product
+        /// </summary>
+        /// <remarks>
+        /// Update an existing product
+        /// </remarks>
+        /// <param name="product"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> UpdateProduct([FromBody] Product product, Guid id)
+        {
+            try
+            {
+                product.Id = id;
+                var result = await _repository.Update(product);
+                return Ok(result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
+            catch (ArgumentNullException e)
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
         /// Delete an existing product
         /// </summary>
         /// <remarks>

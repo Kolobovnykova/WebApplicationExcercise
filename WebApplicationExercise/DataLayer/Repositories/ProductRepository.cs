@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationExercise.Core;
 using WebApplicationExercise.DataLayer.Interfaces;
@@ -51,7 +52,25 @@ namespace WebApplicationExercise.DataLayer.Repositories
 
         public async Task<Product> Update(Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var result = await Get(product.Id);
+            if (result == null)
+            {
+                throw new NotFoundException(nameof(product));
+            }
+
+            result.Name = product.Name;
+            result.Price = product.Price;
+            result.Quantity = product.Quantity;
+
+            _context.Entry(result.Order).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return result;
         }
 
         public async Task<Product> Delete(Guid id)
